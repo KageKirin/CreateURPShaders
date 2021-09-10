@@ -14,9 +14,13 @@
         "Universal Render Pipeline"
     ],
     "author": {
-      "name": "KageKirin",
-      "email": "kagekirin@gmail.com",
-      "url": "https://github.com/kagekirin"
+        "name": "KageKirin",
+        "email": "kagekirin@gmail.com",
+        "url": "https://github.com/kagekirin"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/KageKirin/CreateURPShaders.git"
     }
 }
 
