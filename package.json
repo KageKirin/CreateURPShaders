@@ -1,0 +1,22 @@
+{
+    "name": "com.kagekirin.createurpshaders",
+    "version": "1.0.0",
+    "displayName": "Create URP Shaders",
+    "description": "Editor extension to add menu entries to create new URP Lit/Empty shaders",
+    "unity": "2021.1",
+    "dependencies": {
+        "com.unity.render-pipelines.universal": "11.0.0"
+   },
+   "keywords": [
+        "shader",
+        "editor",
+        "urp",
+        "Universal Render Pipeline"
+    ],
+    "author": {
+      "name": "KageKirin",
+      "email": "kagekirin@gmail.com",
+      "url": "https://github.com/kagekirin"
+    }
+}
+
