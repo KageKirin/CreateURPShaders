@@ -1,0 +1,6 @@
+{
+    "name": "KageKirin.CreateURPShaders.Editor",
+    "includePlatforms": [
+        "Editor"
+    ]
+}
