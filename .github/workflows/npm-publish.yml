@@ -4,6 +4,9 @@
 name: UPM Package
 
 on:
+  push:
+    tags:
+      - '*'
   release:
     types: [created]
 
