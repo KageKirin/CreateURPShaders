@@ -20,7 +20,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/KageKirin/CreateURPShaders.git"
+        "url": "https://github.com/KageKirin/CreateURPShaders.git",
+        "directory": "com.kagekirin.createurpshaders"
     },
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/@kagekirin"
