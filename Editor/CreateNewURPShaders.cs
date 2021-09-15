@@ -28,6 +28,19 @@ public class CreateNewURPShaders : MonoBehaviour
         ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D) AssetDatabase.GetCachedIcon(shaderPath));
     }
 
+    [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Simple Lit Shader")]
+    static void CreateNewSimpleLitShader()
+    {
+        Shader shader = Shader.Find("Universal Render Pipeline/Simple Lit");
+        string shaderPath = AssetDatabase.GetAssetPath(shader);
+        string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewSimpleLit.shader");
+        string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
+
+        string shaderSource = File.ReadAllText(shaderPath);
+        string newShaderSource = shaderSource.Replace("Universal Render Pipeline/Simple Lit", $"Universal Render Pipeline/{newShaderName}");
+        ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D) AssetDatabase.GetCachedIcon(shaderPath));
+    }
+
     [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Empty Shader")]
     static void CreateNewEmptyShader()
     {
