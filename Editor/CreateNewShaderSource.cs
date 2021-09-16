@@ -1,7 +1,6 @@
 using System;
 using System.Reflection;
 using System.IO;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 
@@ -9,14 +8,9 @@ namespace KageKirin.CreateURPShaders.Editor
 {
     public class CreateNewShaderSources : MonoBehaviour
     {
-        private static string ConvertNameToMacro(string name)
-        {
-            return Regex.Replace(Regex.Replace(name, "(?<=[a-z0-9\\s])[A-Z0-9]+", m => "_" + m.Value).ToUpperInvariant(), "\\s+", "");
-        }
-
         private static string GetShaderSource(string name)
         {
-            string macro = ConvertNameToMacro(name);
+            string macro = Utils.ConvertNameToMacro(name);
 
             // return a regular include guard, b/c #pragma once is not supported.
             return $"#ifndef {macro}\n" + $"#define {macro}\n\n" + $"#endif // {macro}\n";
