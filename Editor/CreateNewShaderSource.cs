@@ -9,23 +9,15 @@ public class CreateNewShaderSources : MonoBehaviour
 {
     public static string ActiveFolderPath
     {
-        get
-        {
-            MethodInfo getActiveFolderPath = typeof(ProjectWindowUtil).GetMethod("GetActiveFolderPath",
-                BindingFlags.Static | BindingFlags.NonPublic);
-            return (string) getActiveFolderPath.Invoke(null, null);
+        get {
+            MethodInfo getActiveFolderPath = typeof(ProjectWindowUtil).GetMethod("GetActiveFolderPath", BindingFlags.Static | BindingFlags.NonPublic);
+            return (string)getActiveFolderPath.Invoke(null, null);
         }
     }
 
     private static string ConvertNameToMacro(string name)
     {
-        return Regex.Replace(
-            Regex.Replace(
-                name,
-                "(?<=[a-z0-9\\s])[A-Z0-9]+",
-                m => "_" + m.Value)
-            .ToUpperInvariant(),
-            "\\s+", "");
+        return Regex.Replace(Regex.Replace(name, "(?<=[a-z0-9\\s])[A-Z0-9]+", m => "_" + m.Value).ToUpperInvariant(), "\\s+", "");
     }
 
     private static string GetShaderSource(string name)
@@ -33,9 +25,7 @@ public class CreateNewShaderSources : MonoBehaviour
         string macro = ConvertNameToMacro(name);
 
         // return a regular include guard, b/c #pragma once is not supported.
-        return $"#ifndef {macro}\n"
-             + $"#define {macro}\n\n"
-             + $"#endif // {macro}\n";
+        return $"#ifndef {macro}\n" + $"#define {macro}\n\n" + $"#endif // {macro}\n";
     }
 
     [MenuItem("Assets/Create/Shader/New Shader Source (HLSL)")]
