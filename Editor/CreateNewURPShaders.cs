@@ -3,54 +3,46 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-public class CreateNewURPShaders : MonoBehaviour
+namespace KageKirin.CreateURPShaders.Editor
 {
-    public static string ActiveFolderPath
+    public class CreateNewURPShaders : MonoBehaviour
     {
-        get
+        [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Lit Shader")]
+        static void CreateNewLitShader()
         {
-            MethodInfo getActiveFolderPath = typeof(ProjectWindowUtil).GetMethod("GetActiveFolderPath",
-                BindingFlags.Static | BindingFlags.NonPublic);
-            return (string) getActiveFolderPath.Invoke(null, null);
+            Shader shader        = Shader.Find("Universal Render Pipeline/Lit");
+            string shaderPath    = AssetDatabase.GetAssetPath(shader);
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewLit.shader");
+            string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
+
+            string shaderSource    = File.ReadAllText(shaderPath);
+            string newShaderSource = shaderSource.Replace("Universal Render Pipeline/Lit", $"Universal Render Pipeline/{newShaderName}");
+            ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D)AssetDatabase.GetCachedIcon(shaderPath));
         }
-    }
 
-    [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Lit Shader")]
-    static void CreateNewLitShader()
-    {
-        Shader shader = Shader.Find("Universal Render Pipeline/Lit");
-        string shaderPath = AssetDatabase.GetAssetPath(shader);
-        string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewLit.shader");
-        string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
+        [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Simple Lit Shader")]
+        static void CreateNewSimpleLitShader()
+        {
+            Shader shader        = Shader.Find("Universal Render Pipeline/Simple Lit");
+            string shaderPath    = AssetDatabase.GetAssetPath(shader);
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewSimpleLit.shader");
+            string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
-        string shaderSource = File.ReadAllText(shaderPath);
-        string newShaderSource = shaderSource.Replace("Universal Render Pipeline/Lit", $"Universal Render Pipeline/{newShaderName}");
-        ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D) AssetDatabase.GetCachedIcon(shaderPath));
-    }
+            string shaderSource    = File.ReadAllText(shaderPath);
+            string newShaderSource = shaderSource.Replace("Universal Render Pipeline/Simple Lit", $"Universal Render Pipeline/{newShaderName}");
+            ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D)AssetDatabase.GetCachedIcon(shaderPath));
+        }
 
-    [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Simple Lit Shader")]
-    static void CreateNewSimpleLitShader()
-    {
-        Shader shader = Shader.Find("Universal Render Pipeline/Simple Lit");
-        string shaderPath = AssetDatabase.GetAssetPath(shader);
-        string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewSimpleLit.shader");
-        string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
+        [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Empty Shader")]
+        static void CreateNewEmptyShader()
+        {
+            Shader shader     = Shader.Find("Universal Render Pipeline/Lit");
+            string shaderPath = AssetDatabase.GetAssetPath(shader);
 
-        string shaderSource = File.ReadAllText(shaderPath);
-        string newShaderSource = shaderSource.Replace("Universal Render Pipeline/Simple Lit", $"Universal Render Pipeline/{newShaderName}");
-        ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D) AssetDatabase.GetCachedIcon(shaderPath));
-    }
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewEmpty.shader");
+            string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
-    [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Empty Shader")]
-    static void CreateNewEmptyShader()
-    {
-        Shader shader = Shader.Find("Universal Render Pipeline/Lit");
-        string shaderPath = AssetDatabase.GetAssetPath(shader);
-
-        string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewEmpty.shader");
-        string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
-
-        string shaderSource = @"// This shader fills the mesh shape with a color predefined in the code.
+            string shaderSource    = @"// This shader fills the mesh shape with a color predefined in the code.
 Shader ""Example/URPUnlitShaderBasic""
 {
     // The properties block of the Unity shader. In this example this block is empty
@@ -121,7 +113,8 @@ Shader ""Example/URPUnlitShaderBasic""
     }
 }
 ";
-        string newShaderSource = shaderSource.Replace("Example/URPUnlitShaderBasic", $"Universal Render Pipeline/{newShaderName}");
-        ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D) AssetDatabase.GetCachedIcon(shaderPath));
+            string newShaderSource = shaderSource.Replace("Example/URPUnlitShaderBasic", $"Universal Render Pipeline/{newShaderName}");
+            ProjectWindowUtil.CreateAssetWithContent(newShaderPath, newShaderSource, (Texture2D)AssetDatabase.GetCachedIcon(shaderPath));
+        }
     }
-}
+} // KageKirin.CreateURPShaders.Editor
