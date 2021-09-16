@@ -9,14 +9,6 @@ namespace KageKirin.CreateURPShaders.Editor
 {
     public class CreateNewShaderSources : MonoBehaviour
     {
-        public static string ActiveFolderPath
-        {
-            get {
-                MethodInfo getActiveFolderPath = typeof(ProjectWindowUtil).GetMethod("GetActiveFolderPath", BindingFlags.Static | BindingFlags.NonPublic);
-                return (string)getActiveFolderPath.Invoke(null, null);
-            }
-        }
-
         private static string ConvertNameToMacro(string name)
         {
             return Regex.Replace(Regex.Replace(name, "(?<=[a-z0-9\\s])[A-Z0-9]+", m => "_" + m.Value).ToUpperInvariant(), "\\s+", "");
@@ -33,7 +25,7 @@ namespace KageKirin.CreateURPShaders.Editor
         [MenuItem("Assets/Create/Shader/New Shader Source (HLSL)")]
         static void CreateNewHLSL()
         {
-            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewShaderLib.hlsl");
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewShaderLib.hlsl");
             string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
             ProjectWindowUtil.CreateAssetWithContent(newShaderPath, GetShaderSource(newShaderName), AssetPreview.GetMiniTypeThumbnail(typeof(TextAsset)));
@@ -42,7 +34,7 @@ namespace KageKirin.CreateURPShaders.Editor
         [MenuItem("Assets/Create/Shader/New Shader Source (GLSL)")]
         static void CreateNewGLSL()
         {
-            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewShaderLib.glsl");
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewShaderLib.glsl");
             string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
             ProjectWindowUtil.CreateAssetWithContent(newShaderPath, GetShaderSource(newShaderName), AssetPreview.GetMiniTypeThumbnail(typeof(TextAsset)));

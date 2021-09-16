@@ -7,19 +7,12 @@ namespace KageKirin.CreateURPShaders.Editor
 {
     public class CreateNewURPShaders : MonoBehaviour
     {
-        public static string ActiveFolderPath
-        {
-            get {
-                MethodInfo getActiveFolderPath = typeof(ProjectWindowUtil).GetMethod("GetActiveFolderPath", BindingFlags.Static | BindingFlags.NonPublic);
-                return (string)getActiveFolderPath.Invoke(null, null);
-            }
-        }
-
-        [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Lit Shader")] static void CreateNewLitShader()
+        [MenuItem("Assets/Create/Shader/Universal Render Pipeline/New Lit Shader")]
+        static void CreateNewLitShader()
         {
             Shader shader        = Shader.Find("Universal Render Pipeline/Lit");
             string shaderPath    = AssetDatabase.GetAssetPath(shader);
-            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewLit.shader");
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewLit.shader");
             string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
             string shaderSource    = File.ReadAllText(shaderPath);
@@ -32,7 +25,7 @@ namespace KageKirin.CreateURPShaders.Editor
         {
             Shader shader        = Shader.Find("Universal Render Pipeline/Simple Lit");
             string shaderPath    = AssetDatabase.GetAssetPath(shader);
-            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewSimpleLit.shader");
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewSimpleLit.shader");
             string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
             string shaderSource    = File.ReadAllText(shaderPath);
@@ -46,7 +39,7 @@ namespace KageKirin.CreateURPShaders.Editor
             Shader shader     = Shader.Find("Universal Render Pipeline/Lit");
             string shaderPath = AssetDatabase.GetAssetPath(shader);
 
-            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{CreateNewURPShaders.ActiveFolderPath}/NewEmpty.shader");
+            string newShaderPath = AssetDatabase.GenerateUniqueAssetPath($"{Utils.ActiveFolderPath}/NewEmpty.shader");
             string newShaderName = Path.GetFileNameWithoutExtension(newShaderPath);
 
             string shaderSource    = @"// This shader fills the mesh shape with a color predefined in the code.
